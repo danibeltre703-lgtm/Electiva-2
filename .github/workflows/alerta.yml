@@ -1,0 +1,21 @@
+name: Alerta DevOps ITLA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  enviar-alerta:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Ejecutar programa Hola Mundo
+        run: node hola.js
+
+      - name: Enviar notificacion a ntfy
+        run: |
+          curl -d "Se realizo un push en la rama main del repositorio Electiva-2. Hola Mundo ejecutado correctamente." https://ntfy.sh/devops-itla
