@@ -1,0 +1,25 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar Surge
+        run: npm install --global surge
+
+      - name: Desplegar en Surge.sh
+        run: surge ./ electiva-2-danibeltre.surge.sh --token ${{ secrets.SURGE_TOKEN }}
