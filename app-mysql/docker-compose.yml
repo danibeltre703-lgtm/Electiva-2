@@ -1,0 +1,22 @@
+services:
+  app:
+    image: php:8.2-apache
+    container_name: app_php_mysql
+    ports:
+      - "8081:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+    command: >
+      bash -c "docker-php-ext-install mysqli && apache2-foreground"
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_practica
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: practica
+    ports:
+      - "3307:3306"
